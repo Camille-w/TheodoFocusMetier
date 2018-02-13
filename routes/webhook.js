@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var chatService = require('../server/chatService')
 
 // Adds support for GET requests to our webhook
 router.get('/', (req, res) => {
@@ -45,6 +46,7 @@ router.post('/', (req, res) => {
       // will only ever contain one message, so we get index 0
       var webhook_event = entry.messaging[0];
       console.log(webhook_event);
+      chatService.receivedMessage(webhook_event);
     });
 
     // Returns a '200 OK' response to all requests
